@@ -8,7 +8,8 @@ dir_path <- '/Users/tan/CD11b-collab/processed_data/Neutrophils'
 dat_list <- lapply(list.files(dir_path), function(x){
   batch <- strsplit(x, '.', fixed = T)[[1]][1]
   d <- mm.fastread(file.path(dir_path, x)) %>%
-    add_column(batch = batch)
+    add_column(batch = batch) %>%
+    mutate(sample_id = as.character(sample_id))
 })
 
 dat <- bind_rows(dat_list) %>%
